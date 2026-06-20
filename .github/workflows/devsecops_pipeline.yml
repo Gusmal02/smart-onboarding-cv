@@ -1,0 +1,51 @@
+name: DevSecOps Pipeline — Smart Onboarding CV
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  security-and-tests:
+    name: SAST + Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar uv
+        run: pip install uv
+
+      - name: Instalar dependencias
+        run: uv pip install --system torch torchvision lightgbm fastapi uvicorn pillow numpy pandas scikit-learn bandit pytest
+
+      - name: SAST — Escaneo estático de seguridad (Bandit)
+        run: |
+          bandit -r . \
+            --exclude ./.venv,./data,./models \
+            -ll \
+            --format txt
+        continue-on-error: false
+
+      - name: Generar datos sintéticos
+        run: python generate_data.py
+
+      - name: Entrenar modelos
+        run: python train.py
+
+      - name: Ejecutar pruebas unitarias
+        run: pytest tests/ -v
+
+      - name: Verificar health del pipeline
+        run: |
+          uvicorn api.main:app --host 0.0.0.0 --port 8000 &
+          sleep 5
+          curl -f http://localhost:8000/health
+          kill %1

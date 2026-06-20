@@ -1,0 +1,30 @@
+# Entorno virtual
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Modelos entrenados (pesados para git)
+models/*.pth
+models/*.pkl
+
+# Datos sintéticos (se regeneran con generate_data.py)
+data/
+
+# Pytest
+.pytest_cache/
+
+# IDEs
+.vscode/
+*.code-workspace
+
+# Docker
+.dockerignore
+
+# OS
+Thumbs.db
+.DS_Store
