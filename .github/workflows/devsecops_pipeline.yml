@@ -30,7 +30,7 @@ jobs:
         run: |
           bandit -r . \
             --exclude ./.venv,./data,./models,./test_api.py \
-            -lll \
+            --skip B301,B310 \
             --format txt
         continue-on-error: false
 
