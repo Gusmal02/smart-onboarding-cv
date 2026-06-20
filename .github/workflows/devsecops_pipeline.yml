@@ -28,10 +28,7 @@ jobs:
 
       - name: SAST — Escaneo estático de seguridad (Bandit)
         run: |
-          bandit -r . \
-            --exclude ./.venv,./data,./models,./test_api.py \
-            --skip B301,B310 \
-            --format txt
+          bandit -r . -c .bandit --format txt
         continue-on-error: true
 
       - name: Generar datos sintéticos

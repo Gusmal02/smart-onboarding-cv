@@ -1,0 +1,3 @@
+[bandit]
+skips = B301,B310
+exclude_dirs = .venv,data,models,test_api.py
