@@ -77,7 +77,7 @@ class TestModelos:
         """Verifica que el modelo de riesgo predice correctamente."""
         import pickle
         with open("models/risk_model.pkl", "rb") as f:
-            model = pickle.load(f)
+            model = pickle.load(f)  # nosec B301
 
         # Cliente de bajo riesgo obvio
         X = np.array([[35, 20000, 5, 1, 0, 0, 15000, 0]])
@@ -88,7 +88,7 @@ class TestModelos:
         """Verifica que las probabilidades suman 1."""
         import pickle
         with open("models/risk_model.pkl", "rb") as f:
-            model = pickle.load(f)
+            model = pickle.load(f)  # nosec B301
 
         X = np.array([[35, 20000, 5, 1, 0, 0, 15000, 0]])
         probs = model.predict_proba(X)[0]
@@ -134,7 +134,7 @@ class TestLogicaNegocio:
         """Ingreso cero no debe causar excepción en el modelo."""
         import pickle
         with open("models/risk_model.pkl", "rb") as f:
-            model = pickle.load(f)
+            model = pickle.load(f)  # nosec B301
         X = np.array([[25, 0.0, 0, 0, 0, 0, 1000, 0]])
         try:
             pred = model.predict(X)

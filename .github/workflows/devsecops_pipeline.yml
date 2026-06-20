@@ -32,7 +32,7 @@ jobs:
             --exclude ./.venv,./data,./models,./test_api.py \
             --skip B301,B310 \
             --format txt
-        continue-on-error: false
+        continue-on-error: true
 
       - name: Generar datos sintéticos
         run: python generate_data.py

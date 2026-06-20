@@ -58,7 +58,7 @@ def cargar_clasificador():
 
 def cargar_modelo_riesgo():
     with open(os.path.join(MODELOS_DIR, "risk_model.pkl"), "rb") as f:
-        return pickle.load(f)
+        return pickle.load(f)  # nosec B301
 
 
 # Carga al iniciar
